@@ -936,3 +936,248 @@ body {
   transition: .3s;
   border-radius: 50%;
 }
+
+input:checked+.switch-slider {
+  background-color: var(--accent-electrum);
+  border-color: var(--accent-electrum);
+}
+
+input:checked+.switch-slider:before {
+  transform: translateX(20px);
+  background-color: var(--bg-black-diamond);
+}
+
+/* Confidence Slider */
+.slider-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.slider-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.75rem;
+}
+
+.slider-label {
+  color: var(--text-pewter-blue);
+}
+
+.slider-val {
+  color: var(--accent-electrum);
+  font-family: var(--font-mono);
+  font-weight: 700;
+}
+
+.luxury-range {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 6px;
+  border-radius: 3px;
+  background: #1A2630;
+  outline: none;
+}
+
+.luxury-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--accent-electrum);
+  cursor: pointer;
+  box-shadow: 0 0 8px rgba(231, 203, 156, 0.6);
+}
+
+/* Detected Objects Card (Matching User Mockup Reference Image) */
+.detected-objects-card {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 240px;
+}
+
+.count-pill {
+  background: rgba(54, 73, 88, 0.8);
+  border: 1px solid var(--border-odyssey);
+  color: var(--text-milky-quartz);
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+}
+
+.detected-list-scroller {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  padding-right: 0.2rem;
+}
+
+/* List Item matching User Mockup */
+.detected-item-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: rgba(16, 16, 18, 0.65);
+  border: 1px solid var(--border-odyssey);
+  border-radius: 10px;
+  padding: 0.65rem 0.85rem;
+  transition: all 0.2s;
+}
+
+.detected-item-row:hover {
+  border-color: var(--border-gold);
+  background: rgba(231, 203, 156, 0.05);
+}
+
+.item-left {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+}
+
+.item-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: var(--accent-teal);
+  box-shadow: 0 0 6px var(--accent-teal);
+  flex-shrink: 0;
+}
+
+.item-titles {
+  display: flex;
+  flex-direction: column;
+}
+
+.item-main-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-milky-quartz);
+}
+
+.item-sub-title {
+  font-size: 0.72rem;
+  color: var(--text-pewter-blue);
+}
+
+.item-score {
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--text-milky-quartz);
+}
+
+.detected-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  color: var(--text-dimmed);
+  font-size: 0.8rem;
+  gap: 0.5rem;
+  text-align: center;
+  padding: 1.5rem;
+}
+
+.empty-icon {
+  font-size: 1.6rem;
+  opacity: 0.6;
+}
+
+.list-scroll-hint {
+  text-align: center;
+  color: var(--text-pewter-blue);
+  font-size: 0.9rem;
+  opacity: 0.7;
+}
+
+/* Storage Info Card */
+.storage-card {
+  padding: 0.85rem 1rem;
+}
+
+.storage-info {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.storage-icon {
+  font-size: 1.2rem;
+  color: var(--accent-electrum);
+}
+
+.storage-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.storage-title {
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-pewter-blue);
+  text-transform: uppercase;
+}
+
+.storage-path {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--accent-electrum);
+}
+
+/* Disconnect Block Button */
+.btn-disconnect-block {
+  width: 100%;
+  background: rgba(255, 71, 87, 0.12);
+  border: 1px solid rgba(255, 71, 87, 0.35);
+  color: var(--accent-ruby);
+  border-radius: 12px;
+  padding: 0.8rem;
+  font-family: var(--font-main);
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.btn-disconnect-block:hover {
+  background: var(--accent-ruby);
+  color: #FFFFFF;
+  box-shadow: 0 0 16px rgba(255, 71, 87, 0.4);
+}
+
+
+/* ==========================================================================
+   3. MODAL & TOASTS
+   ========================================================================== */
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 10, 12, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem;
+}
+
+.modal-card {
+  background: #1C242C;
+  border: 1px solid var(--border-gold);
+  border-radius: 20px;
+  max-width: 860px;
+  width: 100%;
+  max-height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.8);
+}
+
+.
