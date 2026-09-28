@@ -1143,25 +1143,15 @@ input:checked+.switch-slider:before {
   font-size: 0.85rem;
   font-weight: 700;
   cursor: pointer;
-  transition: all 0.2s;
+  text-decoration: none;
 }
 
-.btn-disconnect-block:hover {
-  background: var(--accent-ruby);
-  color: #FFFFFF;
-  box-shadow: 0 0 16px rgba(255, 71, 87, 0.4);
+.btn-mini.danger {
+  color: #ff6b81;
+  border-color: rgba(255, 71, 87, 0.3);
 }
 
-
-/* ==========================================================================
-   3. MODAL & TOASTS
-   ========================================================================== */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(10, 10, 12, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 1000;
+.gallery-empty-state {
   display: flex;
   align-items: center;
   justify-content: center;
