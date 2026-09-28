@@ -1,0 +1,54 @@
+/* ==========================================================================
+   Project HYDRA Cam - Luxury Obsidian & Electrum Gold Theme
+   Palette:
+     - Black Diamond: #171719
+     - Odyssey:       #364958
+     - Pewter Blue:   #89A6B8
+     - Milky Quartz:  #E8FDFF
+     - Electrum Gold: #E7CB9C
+     - Criollo Cacao: #745C4E
+   ========================================================================== */
+
+:root {
+  --bg-black-diamond: #171719;
+  --bg-darker: #101012;
+  --card-odyssey: #364958;
+  --card-odyssey-30: rgba(54, 73, 88, 0.4);
+  --card-odyssey-60: rgba(54, 73, 88, 0.7);
+  --card-odyssey-90: rgba(54, 73, 88, 0.92);
+  --border-odyssey: rgba(137, 166, 184, 0.22);
+  --border-gold: rgba(231, 203, 156, 0.45);
+
+  --text-pewter-blue: #89A6B8;
+  --text-milky-quartz: #E8FDFF;
+  --text-dimmed: #6A8294;
+
+  --accent-electrum: #E7CB9C;
+  --accent-gold-glow: rgba(231, 203, 156, 0.25);
+  --accent-cacao: #745C4E;
+  --accent-cacao-dark: #4D3C33;
+  --accent-teal: #00D4FF;
+  --accent-emerald: #2ED573;
+  --accent-ruby: #FF4757;
+
+  --font-main: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: 'JetBrains Mono', Consolas, monospace;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  background-color: var(--bg-black-diamond);
+  color: var(--text-milky-quartz);
+  font-family: var(--font-main);
+  overflow-x: hidden;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
