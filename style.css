@@ -894,3 +894,45 @@ body {
   font-weight: 700;
   color: var(--text-milky-quartz);
 }
+
+.toggle-desc {
+  font-size: 0.68rem;
+  color: var(--text-pewter-blue);
+}
+
+/* Luxury Toggle Switch */
+.luxury-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+  flex-shrink: 0;
+}
+
+.luxury-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.switch-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #26333F;
+  border: 1px solid var(--border-odyssey);
+  transition: .3s;
+  border-radius: 24px;
+}
+
+.switch-slider:before {
+  position: absolute;
+  content: "";
+  height: 16px;
+  width: 16px;
+  left: 3px;
+  bottom: 3px;
+  background-color: var(--text-pewter-blue);
+  transition: .3s;
+  border-radius: 50%;
+}
