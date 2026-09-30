@@ -57,3 +57,14 @@ python detector.py --max_results 15
 `
 
 ---
+
+## ⌨️ Keyboard Shortcuts
+
+| Key | Action |
+| :--- | :--- |
+| q or ESC | Quit the detector and close the camera window |
+| s | Capture and save a screenshot in the screenshots/ folder |
+| u | Increase confidence threshold by 5% (Up) |
+| d | Decrease confidence threshold by 5% (Down) |
+
+---
