@@ -32,3 +32,28 @@ pip install -r requirements.txt
 umpy)*
 
 ---
+
+## 🎮 How to Run
+
+Simply execute the script from your terminal:
+
+`ash
+python detector.py
+`
+
+### Optional CLI Arguments
+
+You can customize camera index, confidence threshold, or model path:
+
+`ash
+# Use an external webcam (e.g. camera index 1)
+python detector.py --camera 1
+
+# Start with a lower or higher confidence threshold (e.g. 40%)
+python detector.py --threshold 0.4
+
+# Change maximum detected items per frame
+python detector.py --max_results 15
+`
+
+---
