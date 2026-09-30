@@ -18,3 +18,17 @@ A real-time, lightweight computer vision system built with **OpenCV** and **Goog
 - **Auto-Model Management**: Automatically downloads the required TFLite model on first run if not already present.
 
 ---
+
+## 📦 Requirements & Installation
+
+1. Ensure Python 3.8+ is installed on your machine.
+2. Install the required Python packages:
+
+`ash
+pip install -r requirements.txt
+`
+
+*(Required dependencies: opencv-python, mediapipe, 
+umpy)*
+
+---
