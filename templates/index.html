@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project HYDRA Cam - AI Command Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body class="luxury-dark">
+
+  <!-- ===================================================================== -->
+  <!-- 1. SPLASH / CONNECTION SCREEN (Initial View)                         -->
+  <!-- ===================================================================== -->
+  <section id="splashScreen" class="splash-container">
+    <div class="splash-wrapper">
+      
+      <!-- Brand Header -->
+      <header class="splash-header">
+        <div class="brand-badge">
+          <span class="pulse-gold"></span>
+          <span>HYDRA CAM v2.0</span>
+        </div>
+        <h1 class="splash-title">AI Object Detection & Command Center</h1>
+        <p class="splash-subtitle">Real-time computer vision inference powered by Google MediaPipe</p>
+      </header>
+
+      <!-- Main Two Connection Choice Cards -->
+      <div class="connection-grid">
+        
+        <!-- Choice 1: Connect IP Camera -->
+        <div class="connect-card" id="cardIpCam">
+          <div class="card-icon-wrap">
+            <span class="card-icon">🌐</span>
+          </div>
+          <h2 class="card-title">Connect IP Camera</h2>
+          <p class="card-desc">Stream from security cameras, ESP32-CAM, RTSP, or local HTTP video streams.</p>
+          
+          <div class="form-group">
+            <label for="inputIpUrl" class="form-label">IP Stream URL / RTSP</label>
+            <div class="input-with-presets">
+              <input type="text" id="inputIpUrl" class="luxury-input" placeholder="http://192.168.1.100:8080/video" value="http://192.168.1.100:8080/video">
+            </div>
+            <div class="preset-chips">
+              <button type="button" class="preset-chip active" data-url="http://192.168.1.100:8080/video">IP Cam (8080)</button>
+              <button type="button" class="preset-chip" data-url="rtsp://admin:123456@192.168.1.50:554/stream1">RTSP Cam</button>
+              <button type="button" class="preset-chip" data-url="http://192.168.1.80:81/stream">ESP32-CAM</button>
+            </div>
+          </div>
+
+          <button id="btnConnectIp" class="btn-primary-gold">
+            <span>Connect IP Camera</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+
+        <!-- Choice 2: Connect Phone Camera -->
+        <div class="connect-card featured" id="cardPhoneCam">
+          <div class="featured-tag">RECOMMENDED</div>
+          <div class="card-icon-wrap">
+            <span class="card-icon">📱</span>
+          </div>
+          <h2 class="card-title">Connect Phone Camera</h2>
+          <p class="card-desc">Use your Android or iPhone as a high-definition wireless camera over Wi-Fi.</p>
+          
+          <div class="phone-steps-box">
+            <div class="step-item">
+              <span class="step-num">1</span>
+              <span>Open <strong>IP Webcam</strong> (Android) or <strong>DroidCam</strong></span>
+            </div>
+            <div class="step-item">
+              <span class="step-num">2</span>
+              <span>Ensure phone & laptop are on the <strong>same Wi-Fi</strong></span>
+            </div>
+            <div class="step-item">
+              <span class="step-num">3</span>
+              <span>Tap <strong>Start Server</strong> & enter the phone IP below</span>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="inputPhoneUrl" class="form-label">Phone Stream Address</label>
+            <input type="text" id="inputPhoneUrl" class="luxury-input" placeholder="http://192.168.0.105:8080/video" value="http://192.168.0.105:8080/video">
+          </div>
+
+          <button id="btnConnectPhone" class="btn-primary-gold">
+            <span>Connect Phone Camera</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Quick Fallbacks / Secondary Options -->
+      <div class="splash-secondary">
+        <span class="secondary-title">Quick Alternatives:</span>
+        <div class="secondary-buttons">
+          <button id="btnQuickWebcam" class="btn-secondary">
+            <span>💻 Laptop Webcam (Default 0)</span>
+          </button>
+          <button id="btnQuickDemo" class="btn-secondary">
+            <span>🧪 Test Demo Simulation</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Footer Info -->
+      <footer class="splash-footer">
+        <span>Captures & recordings auto-save to <code>E:\HYDRA REC</code></span>
+      </footer>
+
+    </div>
+  </section>
+
+
+  <!-- ===================================================================== -->
+  <!-- 2. THE COMMAND CENTER (Main 80/20 View)                               -->
+  <!-- ===================================================================== -->
+  <section id="commandCenter" class="command-center-container" style="display: none;">
+    
+    <!-- Top Navigation Bar -->
+    <header class="cc-navbar">
+      <div class="cc-brand">
+        <div class="brand-logo">🔱</div>
+        <div class="brand-text">
+          <span class="brand-title">HYDRA CAM</span>
+          <span class="brand-subtitle">OBJECT DETECTION SYSTEM</span>
+        </div>
+        <div class="stream-source-badge" id="sourceBadge">
+          <span class="status-dot online"></span>
+          <span id="sourceBadgeText">Phone Camera (Live)</span>
+        </div>
+      </div>
+
+      <div class="cc-telemetry-strip">
+        <div class="telemetry-pill">
+          <span class="tele-label">FRAME RATE</span>
+          <span class="tele-val gold" id="hudFpsText">0.0 FPS</span>
+        </div>
+        <div class="telemetry-pill">
+          <span class="tele-label">MODEL</span>
+          <span class="tele-val">EfficientDet-Lite0</span>
+        </div>
+        <div class="telemetry-pill">
+          <span class="tele-label">STORAGE</span>
+          <span class="tele-val font-mono">E:\HYDRA REC</span>
+        </div>
+        <button id="btnGalleryModal" class="btn-icon-pill" title="View Captures Gallery">
+          <span>📁 Captures</span>
+          <span class="badge-count" id="capturesBadgeCount">0</span>
+        </button>
+        <button id="btnTopDisconnect" class="btn-disconnect">
+          <span>⏹ Disconnect</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main 80/20 Split Ratio Layout -->
+    <main class="cc-main-grid">
+
+      <!-- ================================================================= -->
+      <!-- LEFT VIEWPORT (80% Width)                                         -->
+      <!-- ================================================================= -->
+      <div class="cc-viewport-column">
+        
+        <!-- Live Video Card -->
+        <div class="video-display-card">
+          <div class="video-wrapper" id="videoWrapper">
+            
+            <!-- Video Feed Image Element -->
+            <img id="hydraVideoFeed" class="live-stream-img" src="" alt="HYDRA Live Stream" />
+
+            <!-- Stream Overlay Loading/Error State -->
+            <div id="videoFallbackOverlay" class="video-overlay-state" style="display: none;">
+              <div class="spinner-gold"></div>
+              <h3>Connecting to Camera...</h3>
+              <p>Please ensure the camera server is actively broadcasting</p>
+            </div>
+
+            <!-- In-Stream Floating HUD Badges -->
+            <div class="in-video-hud">
+              <div class="hud-bottom-left">
+                <span class="hud-fps" id="inVideoFps">FPS: --</span>
+              </div>
+              <div class="hud-bottom-right">
+                <span class="hud-detection-status" id="inVideoStatus">
+                  <span class="pulse-dot-teal"></span>
+                  <span id="inVideoStatusText">AI detection active</span>
+                </span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Action Buttons Pill Bar (Matching Inspo Image) -->
+        <div class="viewport-action-bar">
+          <button id="btnActionPause" class="action-pill-btn">
+            <span class="action-icon" id="iconPause">⏸</span>
+            <span class="action-label" id="labelPause">Pause</span>
+          </button>
+
+          <button id="btnActionFullscreen" class="action-pill-btn">
+            <span class="action-icon">⛶</span>
+            <span class="action-label">Fullscreen</span>
+          </button>
+
+          <button id="btnActionSnapshot" class="action-pill-btn highlight-gold">
+            <span class="action-icon">📷</span>
+            <span class="action-label">Snapshot</span>
+          </button>
+
+          <button id="btnActionRecord" class="action-pill-btn highlight-cacao">
+            <span class="action-icon" id="iconRecord">🔴</span>
+            <span class="action-label" id="labelRecord">Record Video</span>
+          </button>
+        </div>
+
+      </div>
+
+
+      <!-- ================================================================= -->
+      <!-- RIGHT SIDEBAR (20% Width)                                         -->
+      <!-- ================================================================= -->
+      <aside class="cc-sidebar-column">
+
+        <!-- 1. ML Analysis Switch & Feed Toggle Card -->
+        <div class="sidebar-card">
+          <div class="card-header-row">
+            <div class="card-title-group">
+              <span class="card-mini-icon">⚡</span>
+              <h3 class="sidebar-card-title">ML Analysis Engine</h3>
+            </div>
+            <span class="feed-badge" id="feedTypeBadge">AI PROCESSED</span>
+          </div>
+
+          <!-- Master Toggle ML Switch -->
+          <div class="toggle-ml-row">
+            <div class="toggle-info">
+              <span class="toggle-title">Toggle ML Analysis</span>
+              <span class="toggle-desc" id="toggleModeDesc">Annotated Bounding Boxes Active</span>
+            </div>
+            <label class="luxury-switch">
+              <input type="checkbox" id="switchMlToggle" checked>
+              <span class="switch-slider"></span>
+            </label>
+          </div>
+
+          <!-- Confidence Gate Slider -->
+          <div class="slider-group">
+            <div class="slider-header">
+              <span class="slider-label">Confidence Gate:</span>
+              <span class="slider-val" id="confidenceValText">50%</span>
+            </div>
+            <input type="range" id="sliderConfidence" min="10" max="95" value="50" class="luxury-range">
+          </div>
+        </div>
+
+        <!-- 2. Detected Objects List Card (Matching User Reference Image) -->
+        <div class="sidebar-card detected-objects-card">
+          <div class="card-header-row">
+            <h3 class="sidebar-card-title">Detected objects</h3>
+            <span class="count-pill" id="detectedCountPill">0 objects</span>
+          </div>
+
+          <div class="detected-list-scroller" id="detectedListScroller">
+            <!-- Dynamic Object Items Injected Here via JavaScript -->
+            <div class="detected-empty-state" id="detectedEmptyState">
+              <span class="empty-icon">🎯</span>
+              <p>Scanning frame for objects...</p>
+            </div>
+          </div>
+
+          <div class="list-scroll-hint" id="listScrollHint" style="display: none;">
+            <span>↓</span>
+          </div>
+        </div>
+
+        <!-- 3. Storage Location Indicator -->
+        <div class="sidebar-card storage-card">
+          <div class="storage-info">
+            <span class="storage-icon">💾</span>
+            <div class="storage-text">
+              <span class="storage-title">Local Storage Destination</span>
+              <code class="storage-path">E:\HYDRA REC</code>
+            </div>
+          </div>
+        </div>
+
+        <!-- 4. Disconnect Button -->
+        <div class="sidebar-footer-action">
+          <button id="btnSidebarDisconnect" class="btn-disconnect-block">
+            <span>⏹ Disconnect Camera</span>
+          </button>
+        </div>
+
+      </aside>
+
+    </main>
+
+  </section>
+
+
+  <!-- ===================================================================== -->
+  <!-- 3. CAPTURES GALLERY MODAL                                             -->
+  <!-- ===================================================================== -->
+  <div id="galleryModal" class="modal-backdrop" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title-group">
+          <h2>Session Captures & Recordings</h2>
+          <p>Saved locally to <code>E:\HYDRA REC</code></p>
+        </div>
+        <button id="btnCloseGalleryModal" class="btn-close-modal">✕</button>
+      </div>
+
+      <div class="modal-gallery-grid" id="modalGalleryGrid">
+        <!-- Gallery cards populated via JS -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Notifications Container -->
+  <div id="toastContainer" class="toast-container"></div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
